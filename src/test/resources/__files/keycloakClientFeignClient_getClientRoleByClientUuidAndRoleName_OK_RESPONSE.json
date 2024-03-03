@@ -1,0 +1,7 @@
+{
+  "id": "c8a17642-e4fb-4894-b825-13a875ea5a0d",
+  "name": "ROLE_JOURNALIST",
+  "description": "Journalist role",
+  "clientRole": true,
+  "containerId": "888f589c-3fa9-4dd3-b262-df2064fdbd6d"
+}

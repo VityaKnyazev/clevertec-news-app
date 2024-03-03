@@ -1,0 +1,9 @@
+[
+  {
+    "id": "888f589c-3fa9-4dd3-b262-df2064fdbd6d",
+    "clientId": "some-app",
+    "name": "Some app client",
+    "baseUrl": "http://localhost:8060",
+    "enabled": true
+  }
+]
