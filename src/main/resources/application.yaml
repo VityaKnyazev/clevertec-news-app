@@ -1,0 +1,83 @@
+spring:
+  profiles:
+    active: dev
+
+---
+
+springdoc:
+  api-docs:
+    path: /api-docs
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui
+    enabled: true
+  show-actuator: false
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+  #datasource config
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/news?useUnicode=true&characterEncoding=UTF-8
+    username: admin
+    password: admin
+    hikari:
+      maximum-pool-size: 3
+      connection-timeout: 3000
+      transaction-isolation: TRANSACTION_READ_COMMITTED
+  #jpa config
+#  jpa:
+#    properties:
+#      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+#      hibernate.show_sql: true
+#      hibernate.format_sql: false
+#      hibernate.hbm2ddl.auto: none
+  #liquibase config
+  liquibase:
+    enabled: true
+    change-log: /db/liquibase/db-news-changelog.xml
+  #security config with oauth 2
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: news-app
+            client-secret: 8fG4!qNt@zX3#rMwcyE6uHk
+            authorization-grant-type: authorization_code
+            scope: openid
+          keycloak-feign-crud:
+            client-id: news-app
+            client-secret: 8fG4!qNt@zX3#rMwcyE6uHk
+            authorization-grant-type: client_credentials
+            scope: openid
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8090/realms/app-realm
+            user-name-attribute: preferred_username
+          keycloak-feign-crud:
+            issuer-uri: http://localhost:8090/realms/app-realm
+            user-name-attribute: preferred_username
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8090/realms/app-realm
+  #cloud config
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            connectTimeout: 5000
+            readTimeout: 5000
+            loggerLevel: FULL
+          keycloakUserFeignClient:
+            url: http://localhost:8090/admin/realms/app-realm/users
+          keycloakClientFeignClient:
+            url: http://localhost:8090/admin/realms/app-realm/clients
+      oauth2:
+        enabled: true
+        clientRegistrationId: keycloak-feign-crud

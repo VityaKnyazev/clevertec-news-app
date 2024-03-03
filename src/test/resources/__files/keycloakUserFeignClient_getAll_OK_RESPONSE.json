@@ -1,0 +1,22 @@
+[
+  {
+    "id": "32ce6b0-7e4b-4f25-9703-72103731def1",
+    "username": "misha",
+    "enabled": true,
+    "totp": false,
+    "emailVerified": false,
+    "firstName": "Misha",
+    "lastName": "Mad",
+    "email": "misha@mail.ru",
+    "disableableCredentialTypes": [],
+    "requiredActions": [],
+    "notBefore": 0,
+    "access": {
+      "manageGroupMembership": true,
+      "view": true,
+      "mapRoles": true,
+      "impersonate": false,
+      "manage": true
+    }
+  }
+]
