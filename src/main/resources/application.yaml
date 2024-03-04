@@ -30,12 +30,12 @@ spring:
       connection-timeout: 3000
       transaction-isolation: TRANSACTION_READ_COMMITTED
   #jpa config
-#  jpa:
-#    properties:
-#      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
-#      hibernate.show_sql: true
-#      hibernate.format_sql: false
-#      hibernate.hbm2ddl.auto: none
+  jpa:
+    properties:
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+      hibernate.show_sql: true
+      hibernate.format_sql: false
+      hibernate.hbm2ddl.auto: none
   #liquibase config
   liquibase:
     enabled: true
@@ -81,3 +81,8 @@ spring:
       oauth2:
         enabled: true
         clientRegistrationId: keycloak-feign-crud
+#custom LRU, LFU cache config
+cache:
+  enabled: false
+  algorithm: LFU
+  size: 50

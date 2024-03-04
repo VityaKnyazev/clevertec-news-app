@@ -37,7 +37,7 @@ public class Comment {
     @Column(nullable = false, unique = true)
     private UUID uuid;
 
-    @Column(name = "subscriber_id", nullable = false)
+    @Column(name = "subscriber_uuid", nullable = false)
     private UUID subscriberUUID;
 
     @Column(nullable = false, length = 800)

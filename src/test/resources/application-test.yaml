@@ -1,4 +1,38 @@
 spring:
+  #datasource test config
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: test
+    password: test
+    hikari:
+      maximum-pool-size: 3
+      connection-timeout: 3000
+      transaction-isolation: TRANSACTION_READ_COMMITTED
+  #jpa test config
+  jpa:
+    properties:
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+      hibernate.show_sql: true
+      hibernate.format_sql: false
+      hibernate.hbm2ddl.auto: none
+  #pagination and sorting test config
+#  data:
+#    rest:
+#      page-param-name: page
+#      limit-param-name: size
+#      sort-param-name: sort
+#      default-page-size: 15
+  #liquibase config
+  #liquibase test config
+  liquibase:
+    change-log: /db/liquibase/test-db-news-changelog.xml
+    enabled: true
+  #custom LRU, LFU cache test config
+  cache:
+    enabled: true
+    algorithm: LFU
+    size: 20
+  #cloud test config
   cloud:
     openfeign:
       client:
