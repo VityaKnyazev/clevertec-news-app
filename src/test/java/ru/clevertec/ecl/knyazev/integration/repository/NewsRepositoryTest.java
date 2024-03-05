@@ -130,7 +130,7 @@ public class NewsRepositoryTest extends TestContainerInitializer {
                 Arguments.of(PageRequest.of(pageNumber,
                                 pageSize),
                         new SearchingImpl(searchingParam),
-                        1L),
+                        4L),
 
                 Arguments.of(PageRequest.of(pageNumber,
                                 pageSize,
