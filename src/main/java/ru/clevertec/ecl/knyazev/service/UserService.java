@@ -2,6 +2,7 @@ package ru.clevertec.ecl.knyazev.service;
 
 import ru.clevertec.ecl.knyazev.data.http.owner.user.request.PostPutUserRequestDTO;
 import ru.clevertec.ecl.knyazev.data.http.owner.user.response.GetUserResponseDTO;
+import ru.clevertec.ecl.knyazev.service.exception.ServiceException;
 
 import java.util.List;
 
@@ -18,6 +19,15 @@ public interface UserService {
      * @return user DTO
      */
     GetUserResponseDTO getUserResponseDTO(String uuid);
+
+    /**
+     * Get user DTO using username via web client
+     *
+     * @param username user name
+     * @return user DTO
+     * @throws ServiceException if user not found
+     */
+    GetUserResponseDTO getUserResponseDTOByUsername(String username) throws ServiceException;
 
     /**
      * Get all user DTOs via web client

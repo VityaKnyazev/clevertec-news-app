@@ -45,6 +45,21 @@ public class UserServiceImpl implements UserService {
      * {@inheritDoc}
      */
     @Override
+    public GetUserResponseDTO getUserResponseDTOByUsername(String username) throws ServiceException {
+        GetClientUserResponseDTO[] getClientUserResponseDTOS =
+                keycloakUserFeignClientImpl.getUserByUsername(username, true);
+
+        if (getClientUserResponseDTOS.length == 0) {
+            throw new ServiceException();
+        }
+
+        return userMapperImpl.toGetUserResponseDTO(getClientUserResponseDTOS[0]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public List<GetUserResponseDTO> getUserResponseDTOs() {
         return userMapperImpl.toGetUserResponseDTOs(keycloakUserFeignClientImpl.getAll());
     }

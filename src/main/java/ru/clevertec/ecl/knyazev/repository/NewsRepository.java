@@ -8,8 +8,10 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface NewsRepository extends JpaRepository<News, Long>, NewsRepositoryCustom {
-    @EntityGraph("News.comments")
     Optional<News> findByUuid(UUID newsUUID);
+
+    @EntityGraph("News.comments")
+    Optional<News> findWithCommentsByUuid(UUID newsUUID);
 
     void deleteByUuid(UUID newsUUID);
 }

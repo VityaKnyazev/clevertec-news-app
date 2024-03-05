@@ -11,10 +11,17 @@ import ru.clevertec.ecl.knyazev.cache.operator.impl.NewsCacheOperator;
 import ru.clevertec.ecl.knyazev.config.properties.CacheProperties;
 import ru.clevertec.ecl.knyazev.entity.Comment;
 import ru.clevertec.ecl.knyazev.entity.News;
+import ru.clevertec.ecl.knyazev.mapper.CommentMapper;
+import ru.clevertec.ecl.knyazev.mapper.NewsMapper;
 import ru.clevertec.ecl.knyazev.repository.CommentRepository;
 import ru.clevertec.ecl.knyazev.repository.NewsRepository;
 import ru.clevertec.ecl.knyazev.repository.proxy.impl.CommentRepositoryCacheProxy;
 import ru.clevertec.ecl.knyazev.repository.proxy.impl.NewsRepositoryCacheProxy;
+import ru.clevertec.ecl.knyazev.service.CommentService;
+import ru.clevertec.ecl.knyazev.service.NewsService;
+import ru.clevertec.ecl.knyazev.service.UserService;
+import ru.clevertec.ecl.knyazev.service.impl.CommentServiceImpl;
+import ru.clevertec.ecl.knyazev.service.impl.NewsServiceImpl;
 
 import java.lang.reflect.Proxy;
 import java.util.UUID;
@@ -66,5 +73,27 @@ public class CacheConfig {
                 new Class[]{CommentRepository.class}, commentRepositoryCacheProxy);
     }
 
-    //TODO add Services beans with proxy-repositories in feature/service
+    @Bean
+    NewsService newsServiceImpl(NewsRepository newsRepositoryProxy,
+                                UserService userServiceImpl,
+                                NewsMapper newsMapperImpl,
+                                CommentMapper commentMapperImpl) {
+
+        return new NewsServiceImpl(newsRepositoryProxy,
+                userServiceImpl,
+                newsMapperImpl,
+                commentMapperImpl);
+    }
+
+    @Bean
+    CommentService commentServiceImpl(CommentRepository commentRepositoryProxy,
+                                      NewsService newsServiceImpl,
+                                      UserService userServiceImpl,
+                                      CommentMapper commentMapperImpl) {
+
+        return new CommentServiceImpl(commentRepositoryProxy,
+                newsServiceImpl,
+                userServiceImpl,
+                commentMapperImpl);
+    }
 }

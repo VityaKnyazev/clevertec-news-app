@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.booleanThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -90,6 +91,44 @@ public class UserServiceImplTest {
                 () -> assertThat(actualGetClientUserResponseDTO.email())
                         .isEqualTo(expectedGetClientUserResponseDTO.email())
         );
+    }
+
+    @Test
+    public void checkGetUserResponseDTOByUsernameShouldReturnUserDTO() {
+        GetClientUserResponseDTO[] expectedGetClientUserResponseDTOS = {
+                RemoteServiceTestData.expectedClientUserResponseDTO()
+        };
+
+        when(keycloakUserFeignClientMock.getUserByUsername(anyString(), booleanThat(v -> v.equals(true))))
+                .thenReturn(expectedGetClientUserResponseDTOS);
+
+        String inputUsername = RemoteServiceTestData.USER_NAME;
+        GetUserResponseDTO actualGetClientUserResponseDTO =
+                userServiceImpl.getUserResponseDTOByUsername(inputUsername);
+
+        assertAll(
+                () -> assertThat(actualGetClientUserResponseDTO).isNotNull(),
+                () -> assertThat(actualGetClientUserResponseDTO.uuid())
+                        .isEqualTo(expectedGetClientUserResponseDTOS[0].id()),
+                () -> assertThat(actualGetClientUserResponseDTO.firstName())
+                        .isEqualTo(expectedGetClientUserResponseDTOS[0].firstName()),
+                () -> assertThat(actualGetClientUserResponseDTO.lastName())
+                        .isEqualTo(expectedGetClientUserResponseDTOS[0].lastName()),
+                () -> assertThat(actualGetClientUserResponseDTO.email())
+                        .isEqualTo(expectedGetClientUserResponseDTOS[0].email())
+        );
+    }
+
+    @Test
+    public void checkGetUserResponseDTOByUsernameShouldThrowServiceException() {
+        GetClientUserResponseDTO[] expectedGetClientUserResponseDTOS = {};
+
+        when(keycloakUserFeignClientMock.getUserByUsername(anyString(), booleanThat(v -> v.equals(true))))
+                .thenReturn(expectedGetClientUserResponseDTOS);
+
+        String inputInvalidUsername = RemoteServiceTestData.INVALID_USER_NAME;
+        assertThatExceptionOfType(ServiceException.class)
+                .isThrownBy(() -> userServiceImpl.getUserResponseDTOByUsername(inputInvalidUsername));
     }
 
     @Test
