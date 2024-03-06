@@ -1,0 +1,65 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.1'
+    id 'io.spring.dependency-management' version '1.1.4'
+
+    id 'io.freefair.lombok' version '8.4'
+
+    id 'maven-publish'
+}
+
+group = 'ru.clevertec.ecl.knyazev'
+version = '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter"
+    implementation "org.springframework.boot:spring-boot-starter-web"
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+}
+
+java {
+    sourceCompatibility = JavaLanguageVersion.of(17)
+    targetCompatibility = JavaLanguageVersion.of(17)
+
+    compileJava.options.encoding = 'UTF-8'
+    compileTestJava.options.encoding = 'UTF-8'
+}
+
+bootJar {
+
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionOf('runtimeClasspath')
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+                pom {
+                    name = 'spring-boot-starter-controller-logging'
+                    description = 'Custom spring boot starter for controller logging'
+                }
+            }
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+}

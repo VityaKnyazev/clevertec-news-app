@@ -1,0 +1,27 @@
+<configuration debug="false" scan="true" scanPeriod="30 seconds">
+	
+	<appender name="STDOUT"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d [%thread] [%level] %logger{20} - %m%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FILE_APPENDER" class="ch.qos.logback.core.FileAppender">
+
+		<file>${user.dir}/src/main/resources/logs/controller.log</file>
+
+		<encoder>
+			<pattern>%d [%thread] [%level] %logger{20} - %m%n</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="ru.clevertec.ecl.knyazev.aop.ControllerLoggerAspect"
+			additivity="false">
+		<appender-ref ref="FILE_APPENDER"/>
+	</logger>
+
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>
