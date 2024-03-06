@@ -2,8 +2,10 @@ package ru.clevertec.ecl.knyazev.util;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import ru.clevertec.ecl.knyazev.data.http.owner.news.request.PostPutNewsRequestDTO;
-import ru.clevertec.ecl.knyazev.data.http.owner.user.request.PostPutUserRequestDTO;
+import ru.clevertec.ecl.knyazev.data.http.owner.news.response.GetNewsResponseDTO;
+import ru.clevertec.ecl.knyazev.data.http.owner.pageresponse.PageDTO;
 import ru.clevertec.ecl.knyazev.entity.Comment;
 import ru.clevertec.ecl.knyazev.entity.News;
 
@@ -16,8 +18,13 @@ public class NewsTestData {
     public static String NEWS_DELETING_UUID = "36068389-38c6-4799-a0cc-3e4793e92450";
     public static String NEWS_INVALID_UUID = "5048f592-0c71-45a9-a513-234fc7a7bbae";
     public static String NEWS_JOURNALIST_UUID = "d86bc1b6-365b-460c-ad7a-737c62184c97";
+    public static String NEWS_DTO_AUTHOR_FIRST_NAME = "Mikhail";
+    public static String NEWS_DTO_AUTHOR_LAST_NAME = "Krokop";
+    public static String NEWS_DTO_AUTHOR_EMAIL = "misha@yandex.ru";
     public static String NEWS_TITLE = "Красная жара надвигается на континент";
     public static String NEWS_TEXT = "Красная жара надвигается на континент. Засуха на европейском...";
+
+
     public static Integer NEWS_PAGE = 0;
     public static Integer NEWS_PAGE_SIZE = 4;
     public static String NEWS_SORTING_FIELD = "text";
@@ -45,6 +52,25 @@ public class NewsTestData {
                 .text(NEWS_TEXT)
                 .comments(List.of(comment))
                 .build();
+    }
+
+    public static GetNewsResponseDTO expectedGetNewsResponseDTO() {
+        return GetNewsResponseDTO.builder()
+                .uuid(NEWS_UUID)
+                .authorFirstName(NEWS_DTO_AUTHOR_FIRST_NAME)
+                .authorLastName(NEWS_DTO_AUTHOR_LAST_NAME)
+                .authorEmail(NEWS_DTO_AUTHOR_EMAIL)
+                .title(NEWS_TITLE)
+                .text(NEWS_TEXT)
+                .build();
+    }
+
+    public static PageDTO<GetNewsResponseDTO> expectedPageGetNewsResponseDTO() {
+        List<GetNewsResponseDTO> getNewsResponseDTOs = List.of(expectedGetNewsResponseDTO());
+
+        return new PageDTO<>(new PageImpl<>(getNewsResponseDTOs,
+                Pageable.unpaged(),
+                getNewsResponseDTOs.size()));
     }
 
     public static Page<News> expectedPageNews() {

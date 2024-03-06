@@ -15,8 +15,8 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Configuration
 @Profile({"dev", "prod"})
+@Configuration
 public class KeycloakConfig {
 
     private static final String PREFERRED_USERNAME = "preferred_username";

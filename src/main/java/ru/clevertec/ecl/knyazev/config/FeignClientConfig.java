@@ -13,8 +13,8 @@ import org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 
-@Configuration
 @Profile({"dev", "prod"})
+@Configuration
 @EnableFeignClients(basePackages = {"ru.clevertec.ecl.knyazev.client"})
 public class FeignClientConfig {
     private final OAuth2ClientProperties oAuth2ClientProperties;

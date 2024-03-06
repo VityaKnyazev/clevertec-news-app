@@ -41,7 +41,8 @@ import java.util.stream.Stream;
 @WebMvcTest(value = {UserController.class},
         excludeAutoConfiguration = {SecurityAutoConfiguration.class,
                 OAuth2ClientAutoConfiguration.class,
-                OAuth2ResourceServerAutoConfiguration.class})
+                OAuth2ResourceServerAutoConfiguration.class}
+)
 @RequiredArgsConstructor
 public class UserControllerTest {
 

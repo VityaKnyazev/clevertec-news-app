@@ -1,6 +1,7 @@
 package ru.clevertec.ecl.knyazev.data.http.owner.comment.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
@@ -20,7 +21,7 @@ import org.hibernate.validator.constraints.UUID;
 public record PostPutCommentRequestDTO(
         @Schema(description = "comment DTO text",
                 example = "Славный коментарий получился")
-        @NotNull(message = "comment DTO text must not be null")
+        @NotBlank(message = "comment DTO text must not be null or whitespaces")
         @Size(min = 3, max = 800, message = "comment DTO text must be from 3 to 800 symbols")
         String text,
 
