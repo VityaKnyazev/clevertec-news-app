@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.hibernate.validator.constraints.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +36,7 @@ public class UserController {
 
     private final UserService userServiceImpl;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Get user response DTO by user uuid")
     @ApiResponse(responseCode = "200", description = "Successfully found")
     @GetMapping("/{uuid}")
@@ -52,6 +54,7 @@ public class UserController {
         return ResponseEntity.ok(getUserResponseDTO);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Get all users response DTOs")
     @ApiResponse(responseCode = "200", description = "Successfully found")
     @GetMapping
@@ -72,6 +75,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Update user")
     @ApiResponse(responseCode = "200", description = "Successfully updated")
     @PutMapping("/{uuid}")
@@ -91,6 +95,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Delete user")
     @ApiResponse(responseCode = "204", description = "No content - successfully deleted")
     @DeleteMapping("/{uuid}")
