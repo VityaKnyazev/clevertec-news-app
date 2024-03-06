@@ -1,0 +1,83 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.1'
+    id 'io.spring.dependency-management' version '1.1.4'
+
+    id 'io.freefair.lombok' version '8.4'
+}
+
+ext {
+    starterVersion = '0.0.1-SNAPSHOT'
+
+    swaggerVersion = '2.3.0'
+
+    openFeingVerion = '4.1.0'
+
+    mapStructVersion = '1.5.5.Final'
+
+
+    testContainersVersion = '1.19.3'
+
+    springCloudWireMockVersion = '4.1.1'
+}
+
+group = 'ru.clevertec.ecl.knyazev'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+    implementation "org.springframework.boot:spring-boot-starter-validation"
+    implementation "org.springframework.boot:spring-boot-starter-validation"
+
+    implementation "ru.clevertec.ecl.knyazev:spring-boot-starter-controller-logging:$starterVersion"
+    implementation "ru.clevertec.ecl.knyazev:spring-boot-starter-exception-handler:$starterVersion"
+
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:$swaggerVersion"
+
+    implementation "org.springframework.cloud:spring-cloud-starter-openfeign:$openFeingVerion"
+
+    implementation "org.springframework.boot:spring-boot-starter-oauth2-client"
+    implementation "org.springframework.boot:spring-boot-starter-security"
+    implementation "org.springframework.boot:spring-boot-starter-oauth2-resource-server"
+
+    implementation "org.postgresql:postgresql"
+
+    implementation "com.zaxxer:HikariCP"
+
+    implementation "org.mapstruct:mapstruct:$mapStructVersion"
+    annotationProcessor "org.mapstruct:mapstruct-processor:$mapStructVersion"
+
+    implementation "org.liquibase:liquibase-core"
+
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+
+    testImplementation "org.testcontainers:postgresql:$testContainersVersion"
+
+    testImplementation "org.springframework.cloud:spring-cloud-contract-wiremock:$springCloudWireMockVersion"
+}
+
+java {
+    sourceCompatibility = JavaLanguageVersion.of(17)
+    targetCompatibility = JavaLanguageVersion.of(17)
+
+    compileJava.options.encoding = 'UTF-8'
+    compileTestJava.options.encoding = 'UTF-8'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+tasks.register('deleteLog', Delete) {
+    delete 'src/main/resources/logs'
+    delete 'build/resources/main/logs'
+}
+
+deleteLog.dependsOn test

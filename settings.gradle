@@ -1,2 +1,4 @@
-rootProject.name = 'news-app'
-
+rootProject.name = 'news-app-final'
+include 'news-app'
+include 'spring-boot-starter-controller-logging'
+include 'spring-boot-starter-exception-handler'
