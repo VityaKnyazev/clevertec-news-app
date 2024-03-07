@@ -1,0 +1,21 @@
+{
+    "request": {
+        "method": "GET",
+        "url": "/admin/realms/app-realm/clients?clientId=some-app",
+        "headers": {
+            "Accept": {
+                "equalTo": "*/*"
+            },
+            "Authorization": {
+                "equalTo": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJRNGN4U19CWlFmaUZyXzlDLWtDbmJiUkdBeGNWdE0wQ3ZNM0FINUtEVW9ZIn0.eyJleHAiOjE3MDk0NzIyNjIsImlhdCI6MTcwOTQ3MTk2MiwianRpIjoiOTM4NTA1YWMtMTY3MS00NTk2LTkxOTAtMmU0YjljYzRmZWY1IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkwL3JlYWxtcy9hcHAtcmVhbG0iLCJhdWQiOiJyZWFsbS1tYW5hZ2VtZW50Iiwic3ViIjoiYjc0MDJlNmUtNWVmZC00MjliLTlkZjUtYWRjYThlNmZlZDgyIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoibmV3cy1hcHAiLCJhY3IiOiIxIiwicmVzb3VyY2VfYWNjZXNzIjp7InJlYWxtLW1hbmFnZW1lbnQiOnsicm9sZXMiOlsibWFuYWdlLXVzZXJzIiwibWFuYWdlLWNsaWVudHMiXX0sIm5ld3MtYXBwIjp7InJvbGVzIjpbInVtYV9wcm90ZWN0aW9uIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJjbGllbnRIb3N0IjoiMTcyLjIxLjAuMSIsInJvbGVzIjpbIm1hbmFnZS11c2VycyIsIm1hbmFnZS1jbGllbnRzIiwidW1hX3Byb3RlY3Rpb24iXSwicHJlZmVycmVkX3VzZXJuYW1lIjoic2VydmljZS1hY2NvdW50LW5ld3MtYXBwIiwiY2xpZW50QWRkcmVzcyI6IjE3Mi4yMS4wLjEiLCJjbGllbnRfaWQiOiJuZXdzLWFwcCJ9.RPxZ8PA2v8Nx_qWlbiTU6g1J0gKMU-ihFtGK9RUUibFTFB4e_fzfMAPetBSHyDowvsORaGxMofUOfPo2MmcTt-8TVmO5nuVMox4A2mof1hHPv3zV7F_AqaZOJIQGgj9B42o2mLkShfvsepvEV4SHy7LuEb_8TXw2Uj8xy3gB8R6cF7qC4mUJHYvTshwe4MVV3q5O74WNcOUVxWxOtu_IfqrW9Qx3qavygPsZChWhLp6ytRWEwW0gNxJEETBYa4YZOL6VGh3bKIIErer29nKrZJzsFnR3wVA4LJ6MuDoGVYHHbB1s97j9we8D-VH1MfUxQQRDEszVbcyIoAKOAGCgcQ"
+            }
+        }
+    },
+    "response": {
+        "status": 200,
+        "headers": {
+            "Content-Type": "application/json;charset=utf-8"
+        },
+        "bodyFileName": "keycloakClientFeignClient_getClients_OK_RESPONSE.json"
+    }
+}

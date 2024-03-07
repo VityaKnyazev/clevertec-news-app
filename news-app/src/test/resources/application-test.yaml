@@ -1,0 +1,62 @@
+spring:
+  #datasource test config
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: test
+    password: test
+    hikari:
+      maximum-pool-size: 3
+      connection-timeout: 3000
+      transaction-isolation: TRANSACTION_READ_COMMITTED
+  #jpa test config
+  jpa:
+    properties:
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+      hibernate.show_sql: true
+      hibernate.format_sql: false
+      hibernate.hbm2ddl.auto: none
+  #pagination and sorting test config
+  data:
+    rest:
+      page-param-name: page
+      limit-param-name: size
+      sort-param-name: sort
+      default-page-size: 15
+  #liquibase test config
+  liquibase:
+    change-log: /db/liquibase/test-db-news-changelog.xml
+    enabled: true
+  #set test client-id property with excluded oauth2
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak-feign-crud:
+            client-id: test-news
+  #cloud test config
+  cloud:
+    openfeign:
+      client:
+        config:
+          keycloakUserFeignClient:
+            url: http://localhost:8060/admin/realms/app-realm/users
+            connectTimeout: 5000
+            readTimeout: 5000
+            loggerLevel: FULL
+            default-request-headers:
+              Authorization:
+                - Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ2bVk0TXNCTHVZWjlhcXEybzQyVmU2ZDlKZzZsREZkbkxYRkR5WkdSUE44In0.eyJleHAiOjE3MDkyMjY3ODksImlhdCI6MTcwOTIyNjQ4OSwianRpIjoiNzk0ZGYyZmUtODU1Yy00NGI1LWJiMGQtMTk5YTBiOTg3MzQxIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkwL3JlYWxtcy9hcHAtcmVhbG0iLCJhdWQiOiJyZWFsbS1tYW5hZ2VtZW50Iiwic3ViIjoiYjdlYjVlNTctODkwYi00Mzg0LTg0YWUtMGRkNTQ3NTQ1NWIxIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoibmV3cy1hcHAiLCJhY3IiOiIxIiwicmVzb3VyY2VfYWNjZXNzIjp7InJlYWxtLW1hbmFnZW1lbnQiOnsicm9sZXMiOlsibWFuYWdlLXVzZXJzIiwibWFuYWdlLWNsaWVudHMiXX0sIm5ld3MtYXBwIjp7InJvbGVzIjpbInVtYV9wcm90ZWN0aW9uIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiY2xpZW50SG9zdCI6IjE3Mi4xOC4wLjEiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInJvbGVzIjpbIm1hbmFnZS11c2VycyIsIm1hbmFnZS1jbGllbnRzIiwidW1hX3Byb3RlY3Rpb24iXSwicHJlZmVycmVkX3VzZXJuYW1lIjoic2VydmljZS1hY2NvdW50LW5ld3MtYXBwIiwiY2xpZW50QWRkcmVzcyI6IjE3Mi4xOC4wLjEiLCJjbGllbnRfaWQiOiJuZXdzLWFwcCJ9.CG96HCBxdxD7w6KKy30YXb1tYlW-8KInns_run6332WDWvIrN8aG6_t7bXePivpauQX7zfcpvkV3-oACO7KdXipGnQSLs-RotuuMMh4v_NVhvxgw4DeSGP9k2TG0ATxBOeufK8KidJFk7-4N9H9uVkmtuLJh_RlWeuiyBL7OWY2mrJiCvHuVh_1oLnuevQYIQHjkbcdNb5lT_9D6clFXl5_g_7UQmNt32HxIYUKy-F-SrB0SPfKMkTz3yG1kBUSCTnY2EUWHs9kZo4pXvMdXM-o9DVSDU6y5nyXDSdfqEm6386392gYR4dg1b-wVD1Bm2xuzU4OLx_LY75-ELA-wzQ
+          keycloakClientFeignClient:
+            url: http://localhost:8060/admin/realms/app-realm/clients
+            connectTimeout: 5000
+            readTimeout: 5000
+            loggerLevel: FULL
+            default-request-headers:
+              Authorization:
+                - Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJRNGN4U19CWlFmaUZyXzlDLWtDbmJiUkdBeGNWdE0wQ3ZNM0FINUtEVW9ZIn0.eyJleHAiOjE3MDk0NzIyNjIsImlhdCI6MTcwOTQ3MTk2MiwianRpIjoiOTM4NTA1YWMtMTY3MS00NTk2LTkxOTAtMmU0YjljYzRmZWY1IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDkwL3JlYWxtcy9hcHAtcmVhbG0iLCJhdWQiOiJyZWFsbS1tYW5hZ2VtZW50Iiwic3ViIjoiYjc0MDJlNmUtNWVmZC00MjliLTlkZjUtYWRjYThlNmZlZDgyIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoibmV3cy1hcHAiLCJhY3IiOiIxIiwicmVzb3VyY2VfYWNjZXNzIjp7InJlYWxtLW1hbmFnZW1lbnQiOnsicm9sZXMiOlsibWFuYWdlLXVzZXJzIiwibWFuYWdlLWNsaWVudHMiXX0sIm5ld3MtYXBwIjp7InJvbGVzIjpbInVtYV9wcm90ZWN0aW9uIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJjbGllbnRIb3N0IjoiMTcyLjIxLjAuMSIsInJvbGVzIjpbIm1hbmFnZS11c2VycyIsIm1hbmFnZS1jbGllbnRzIiwidW1hX3Byb3RlY3Rpb24iXSwicHJlZmVycmVkX3VzZXJuYW1lIjoic2VydmljZS1hY2NvdW50LW5ld3MtYXBwIiwiY2xpZW50QWRkcmVzcyI6IjE3Mi4yMS4wLjEiLCJjbGllbnRfaWQiOiJuZXdzLWFwcCJ9.RPxZ8PA2v8Nx_qWlbiTU6g1J0gKMU-ihFtGK9RUUibFTFB4e_fzfMAPetBSHyDowvsORaGxMofUOfPo2MmcTt-8TVmO5nuVMox4A2mof1hHPv3zV7F_AqaZOJIQGgj9B42o2mLkShfvsepvEV4SHy7LuEb_8TXw2Uj8xy3gB8R6cF7qC4mUJHYvTshwe4MVV3q5O74WNcOUVxWxOtu_IfqrW9Qx3qavygPsZChWhLp6ytRWEwW0gNxJEETBYa4YZOL6VGh3bKIIErer29nKrZJzsFnR3wVA4LJ6MuDoGVYHHbB1s97j9we8D-VH1MfUxQQRDEszVbcyIoAKOAGCgcQ
+#custom LRU, LFU cache or redis cache test config
+cache:
+  enabled: true
+  type: custom
+  algorithm: LFU
+  size: 20
