@@ -1,5 +1,6 @@
 package ru.clevertec.ecl.knyazev.repository.proxy.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
 import ru.clevertec.ecl.knyazev.cache.operator.AbstractCacheOperator;
 import ru.clevertec.ecl.knyazev.entity.Comment;
@@ -11,16 +12,12 @@ import java.lang.reflect.Method;
 import java.util.Optional;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 public class CommentRepositoryCacheProxy extends RepositoryCacheProxy<UUID, Comment> implements InvocationHandler {
 
     private final CommentRepository commentRepository;
 
-    public CommentRepositoryCacheProxy(CommentRepository commentRepository,
-                                       AbstractCacheOperator<UUID, Comment> cacheOperator) {
-        super(cacheOperator);
-
-        this.commentRepository = commentRepository;
-    }
+    private final AbstractCacheOperator<UUID, Comment> cacheOperator;
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {

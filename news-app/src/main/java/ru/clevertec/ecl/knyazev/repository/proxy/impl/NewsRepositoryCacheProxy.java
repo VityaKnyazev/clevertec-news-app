@@ -1,5 +1,6 @@
 package ru.clevertec.ecl.knyazev.repository.proxy.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
 import ru.clevertec.ecl.knyazev.cache.operator.AbstractCacheOperator;
 import ru.clevertec.ecl.knyazev.entity.News;
@@ -11,16 +12,11 @@ import java.lang.reflect.Method;
 import java.util.Optional;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 public class NewsRepositoryCacheProxy extends RepositoryCacheProxy<UUID, News> implements InvocationHandler {
 
     private final NewsRepository newsRepository;
-
-    public NewsRepositoryCacheProxy(NewsRepository newsRepository,
-                                    AbstractCacheOperator<UUID, News> cacheOperator) {
-        super(cacheOperator);
-
-        this.newsRepository = newsRepository;
-    }
+    private final AbstractCacheOperator<UUID, News> cacheOperator;
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {

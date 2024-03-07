@@ -1,6 +1,6 @@
 package ru.clevertec.ecl.knyazev.config;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.clevertec.ecl.knyazev.cache.factory.AbstractCacheFactory;
@@ -26,11 +26,11 @@ import ru.clevertec.ecl.knyazev.service.impl.NewsServiceImpl;
 import java.lang.reflect.Proxy;
 import java.util.UUID;
 
-@ConditionalOnProperty(prefix = "cache",
-        name = "enabled",
-        havingValue = "true")
+@ConditionalOnExpression(
+        "${cache.enabled:true} and '${cache.type}'.equals('custom')"
+)
 @Configuration
-public class CacheConfig {
+public class CustomCacheConfig {
 
     @Bean
     AbstractCacheFactory concurrentCacheFactory(CacheProperties cacheProperties) {
