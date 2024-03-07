@@ -39,4 +39,14 @@ public interface NewsMapper {
     @Mapping(target = "updateDate", expression = "java(java.time.LocalDateTime.now())")
     @Mapping(target = "comments", ignore = true)
     News toNews(@MappingTarget News news, PostPutNewsRequestDTO postPutNewsRequestDTO);
+
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "uuid", source = "uuid")
+    @Mapping(target = "journalistUUID", source = "journalistUUID")
+    @Mapping(target = "title", source = "title")
+    @Mapping(target = "text", source = "text")
+    @Mapping(target = "comments", expression = "java(java.util.Collections.emptyList())")
+    @Mapping(target = "createDate", source = "createDate")
+    @Mapping(target = "updateDate", source = "updateDate")
+    News toNewsWithoutComments(News news);
 }

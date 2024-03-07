@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: prod
+    active: dev
 
 ---
 
@@ -36,6 +36,18 @@ spring:
       hibernate.show_sql: true
       hibernate.format_sql: false
       hibernate.hbm2ddl.auto: none
+  #data config
+  data:
+    #pagination and sorting config
+    rest:
+      page-param-name: page
+      limit-param-name: size
+      sort-param-name: sort
+      default-page-size: 15
+    #redis client config
+    redis:
+      host: localhost
+      connect-timeout: 60000
   #liquibase config
   liquibase:
     enabled: true
@@ -83,9 +95,10 @@ spring:
       oauth2:
         enabled: true
         clientRegistrationId: keycloak-feign-crud
-#custom LRU, LFU cache config
+#custom LRU, LFU cache or redis cache config
 cache:
   enabled: false
+  type: custom
   algorithm: LFU
   size: 50
 
@@ -112,6 +125,18 @@ spring:
       hibernate.show_sql: true
       hibernate.format_sql: false
       hibernate.hbm2ddl.auto: none
+  #data config
+  data:
+    #pagination and sorting config
+    rest:
+      page-param-name: page
+      limit-param-name: size
+      sort-param-name: sort
+      default-page-size: 15
+    #redis client config
+    redis:
+      host: redis-service
+      connect-timeout: 60000
   #liquibase config
   liquibase:
     enabled: true
@@ -133,7 +158,7 @@ spring:
             scope: openid
         provider:
           keycloak:
-            issuer-uri: http://auth-keycloak-service:8080/realms/app-realm
+            issuer-uri: http://auth-keycloak-service:8090/realms/app-realm
             user-name-attribute: preferred_username
           keycloak-feign-crud:
             issuer-uri: http://auth-keycloak-service:8080/realms/app-realm
@@ -152,15 +177,16 @@ spring:
             readTimeout: 5000
             loggerLevel: basic
           keycloakClientFeignClient:
-            url: http://auth-keycloak-service:8090/admin/realms/app-realm/clients
+            url: http://auth-keycloak-service:8080/admin/realms/app-realm/clients
             connectTimeout: 5000
             readTimeout: 5000
             loggerLevel: basic
       oauth2:
         enabled: true
         clientRegistrationId: keycloak-feign-crud
-#custom LRU, LFU cache config
+#custom LRU, LFU cache and redis cache config
 cache:
   enabled: false
+  type: custom
   algorithm: LFU
   size: 50

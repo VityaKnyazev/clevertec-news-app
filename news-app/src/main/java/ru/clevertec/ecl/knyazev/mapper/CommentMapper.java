@@ -41,4 +41,13 @@ public interface CommentMapper {
     Comment toComment(@MappingTarget Comment comment,
                       News news,
                       PostPutCommentRequestDTO postPutCommentRequestDTO);
+
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "uuid", source = "uuid")
+    @Mapping(target = "subscriberUUID", source = "subscriberUUID")
+    @Mapping(target = "text", source = "text")
+    @Mapping(target = "news", expression = "java(null)")
+    @Mapping(target = "updateDate", source = "updateDate")
+    @Mapping(target = "createDate", source = "createDate")
+    Comment toCommentWithoutNews(Comment comment);
 }

@@ -16,8 +16,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public abstract class RepositoryCacheProxy<K, V> {
 
-    protected final AbstractCacheOperator<K, V> cacheOperator;
-
     /**
      * Execute proxy method depends on method name from standard Data JPA
      * repository
