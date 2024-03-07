@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev
+    active: prod
 
 ---
 
@@ -135,7 +135,7 @@ spring:
       default-page-size: 15
     #redis client config
     redis:
-      host: redis-service
+      host: service-redis
       connect-timeout: 60000
   #liquibase config
   liquibase:
@@ -158,7 +158,7 @@ spring:
             scope: openid
         provider:
           keycloak:
-            issuer-uri: http://auth-keycloak-service:8090/realms/app-realm
+            issuer-uri: http://auth-keycloak-service:8080/realms/app-realm
             user-name-attribute: preferred_username
           keycloak-feign-crud:
             issuer-uri: http://auth-keycloak-service:8080/realms/app-realm

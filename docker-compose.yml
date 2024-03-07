@@ -1,13 +1,13 @@
 version: "3.9"
 
 services:
-#  app-news:
-#     build: ./
-#     ports:
-#        - "8080:8080"
-#     depends_on:
-#        - auth-keycloak-service
-#        - db-news
+  app-news:
+     build: ./
+     ports:
+        - "8080:8080"
+     depends_on:
+        - auth-keycloak-service
+        - db-news
   db-news:
      image: postgres:16.1
      restart: always
