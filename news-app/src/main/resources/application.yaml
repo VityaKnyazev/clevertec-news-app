@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev
+    active: prod
 
 ---
 
@@ -70,14 +70,92 @@ spring:
     openfeign:
       client:
         config:
-          default:
+          keycloakUserFeignClient:
+            url: http://localhost:8090/admin/realms/app-realm/users
             connectTimeout: 5000
             readTimeout: 5000
             loggerLevel: FULL
-          keycloakUserFeignClient:
-            url: http://localhost:8090/admin/realms/app-realm/users
           keycloakClientFeignClient:
             url: http://localhost:8090/admin/realms/app-realm/clients
+            connectTimeout: 5000
+            readTimeout: 5000
+            loggerLevel: FULL
+      oauth2:
+        enabled: true
+        clientRegistrationId: keycloak-feign-crud
+#custom LRU, LFU cache config
+cache:
+  enabled: false
+  algorithm: LFU
+  size: 50
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+  #datasource config
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://db-news:5432/news?useUnicode=true&characterEncoding=UTF-8
+    username: admin
+    password: admin
+    hikari:
+      maximum-pool-size: 3
+      connection-timeout: 3000
+      transaction-isolation: TRANSACTION_READ_COMMITTED
+  #jpa config
+  jpa:
+    properties:
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+      hibernate.show_sql: true
+      hibernate.format_sql: false
+      hibernate.hbm2ddl.auto: none
+  #liquibase config
+  liquibase:
+    enabled: true
+    change-log: /db/liquibase/db-news-changelog.xml
+  #security oauth 2 config
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: news-app
+            client-secret: 8fG4!qNt@zX3#rMwcyE6uHk
+            authorization-grant-type: authorization_code
+            scope: openid
+          keycloak-feign-crud:
+            client-id: news-app
+            client-secret: 8fG4!qNt@zX3#rMwcyE6uHk
+            authorization-grant-type: client_credentials
+            scope: openid
+        provider:
+          keycloak:
+            issuer-uri: http://auth-keycloak-service:8080/realms/app-realm
+            user-name-attribute: preferred_username
+          keycloak-feign-crud:
+            issuer-uri: http://auth-keycloak-service:8080/realms/app-realm
+            user-name-attribute: preferred_username
+      resourceserver:
+        jwt:
+          issuer-uri: http://auth-keycloak-service:8080/realms/app-realm
+  #cloud config
+  cloud:
+    openfeign:
+      client:
+        config:
+          keycloakUserFeignClient:
+            url: http://auth-keycloak-service:8080/admin/realms/app-realm/users
+            connectTimeout: 5000
+            readTimeout: 5000
+            loggerLevel: basic
+          keycloakClientFeignClient:
+            url: http://auth-keycloak-service:8090/admin/realms/app-realm/clients
+            connectTimeout: 5000
+            readTimeout: 5000
+            loggerLevel: basic
       oauth2:
         enabled: true
         clientRegistrationId: keycloak-feign-crud
